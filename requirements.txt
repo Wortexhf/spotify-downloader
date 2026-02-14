@@ -2,3 +2,5 @@ aiogram
 python-dotenv
 spotipy
 yt-dlp
+requests
+mutagen
