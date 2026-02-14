@@ -4,6 +4,7 @@ import requests
 from spotipy.oauth2 import SpotifyOAuth
 
 
+
 track = None
 album = None
 link = input("Enter the Spotify playlist link: ")
@@ -14,7 +15,7 @@ def link():
             return track
         else:
             if link.startswith("https://open.spotify.com/playlist/"):
-            album = link.split("/")[-1]
+                album = link.split("/")[-1]
             return album
 
 
@@ -44,7 +45,23 @@ with open(f"{track_name}.jpg", "wb") as handler:
 print(f"Album cover for '{track_name}' has been downloaded")
 
 def download_track(artist, track_name):
-     
+     search_query = f"{artist} - {track_name}"
+     yt_dlp = {
+          'format': 'bestaudio/best',
+            'outtmpl':f'{artist} - {track_name}',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '320',
+            }],
+            'quiet': True,
+     }
 
 
 
+print(f"searching for '{search_query}' on YouTube...")
+
+with yt_dlp.YoutubeDL(yt_dlp) as ydl:
+     yt_dlp.download([f"ytsearch:{search_query}"])
+
+download_spotify_track_as_mp3(artist, track)
