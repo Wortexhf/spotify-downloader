@@ -5,3 +5,6 @@ __pycache__/
 .venv
 env/
 venv/
+downloads/
+ffmpeg.exe
+ffprobe.exe
