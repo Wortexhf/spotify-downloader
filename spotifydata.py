@@ -1,15 +1,50 @@
 import spotipy
+import yt_dlp
+import requests
+from spotipy.oauth2 import SpotifyOAuth
+
+
 track = None
+album = None
 link = input("Enter the Spotify playlist link: ")
 
-if link = "https://open.spotify.com/track/":
-    link = track
-else:
-    if link = "https://open.spotify.com/playlist/":
-        link = track
+def link():
+        if link.startswith("https://open.spotify.com/track/"):
+            track = link.split("/")[-1]
+            return track
+        else:
+            if link.startswith("https://open.spotify.com/playlist/"):
+            album = link.split("/")[-1]
+            return album
 
-if album:
-    print(f"list of songs in the album: {tracks} ")
 
-tracks = 
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri="http://localhost:8888/callback", scope="playlist-read-private"))
+
+playlist_id = link()
+
+results = sp.playlist_items(playlist_id)
+tracks =  results['items']
+
+for i, item in enumerate(tracks):
+    track = item['track']
+    print(f"{i + 1}. {track['name']} by {track['artists'][0]['name']}")
+
+
+track = input("Enter the name of the track you want to download: ")
+
+
+image_url = track['album']['images'][0]['url']
+track_name = track['name']
+
+img_data = requests.get(image_url).content
+
+with open(f"{track_name}.jpg", "wb") as handler:
+    handler.write(img_data)
+
+print(f"Album cover for '{track_name}' has been downloaded")
+
+def download_track(artist, track_name):
+     
+
+
 
