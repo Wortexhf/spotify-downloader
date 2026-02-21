@@ -9,3 +9,8 @@ downloads/
 ffmpeg.exe
 ffprobe.exe
 .cachegit
+covers/
+songs/
+.cache
+.cache/
+.cache.json
